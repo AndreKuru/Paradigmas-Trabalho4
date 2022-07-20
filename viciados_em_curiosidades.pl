@@ -54,10 +54,10 @@ aDireita(Lista, X, Y)  :- aEsquerda(Lista, Y, X).
 aoLado(Lista, X, Y)    :- nextto(X, Y, Lista); nextto(Y, X, Lista).
 
 % X está imediatamente a esquerda de Y
-aEsquerdaAdjacente(Lista, X, Y) :- aEsquerda(Lista, X, Y), aoLado(Lista, X, Y).
+exatamenteAEsquerda(Lista, X, Y) :- aEsquerda(Lista, X, Y), aoLado(Lista, X, Y).
 
 % X está imediatamente a direita de Y
-aDireitaAdjacente(Lista, X, Y)  :- aDireita(Lista, X, Y),  aoLado(Lista, X, Y).
+exatamenteADireita(Lista, X, Y)  :- aDireita(Lista, X, Y),  aoLado(Lista, X, Y).
 
 % X está em alguma posição a direita de Y e em alguma posição a esquerda de Z
 entre(Lista, X, Y, Z) :- aDireita(Lista, X, Y), aEsquerda(Lista, X, Z).
@@ -78,177 +78,159 @@ Mesa = [
 % Na quarta posição está o homem que está bebendo Água.
 naPosicao(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
+    amigo(_,        _,        _,           _,         agua,    _),
     4
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % Evandro está em uma das pontas.
-
 naPonta( 
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        evandro,  _,           _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O homem de camiseta Vermelha está em algum lugar entre o homem de 35 anos e o homem que está bebendo Cerveja, nessa ordem.
-
 entre(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(vermelha, _,        _,           _,         _,        _),
+    amigo(_,        _,        _,           _,         _,        35),
+    amigo(_,        _,        _,           _,         cerveja,  _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O homem que está bebendo Café está exatamente à esquerda do homem que gosta de curiosidades de Esportes.
-
-aEsquerdaAdjacente(
+exatamenteAEsquerda(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           _,         cafe,     _),
+    amigo(_,        _,        esportes,    _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O homem mais novo está em algum lugar entre o homem mais velho e o homem de 30 anos, nessa ordem.
-
 entre(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           _,         _,        25),
+    amigo(_,        _,        _,           _,         _,        40),
+    amigo(_,        _,        _,           _,         _,        30)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O Frentista está vestindo uma camiseta Verde.
-
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(verde,    _,        _,           frentista, _,        _),
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 
 
 % O Professor está exatamente à esquerda do homem de 30 anos.
-
-aEsquerdaAdjacente(
+exatamenteAEsquerda(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           professor, _,        _),
+    amigo(_,        _,        _,           _,         _,        30)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O homem que está bebendo Vinho está em algum lugar à direita do homem de camiseta Branca.
-
 aDireita(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           _,         vinho,    _),
+    amigo(branca,   _,        _,           _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 
 % O Frentista está ao lado do homem que gosta de curiosidades de Animais.
-
 aoLado(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           frentista, _,        _),
+    amigo(_,        _,        animais,     _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O homem que gosta de curiosidades de Televisão está em algum lugar à direita do homem de camiseta Vermelha.
-
 aDireita(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        televisao,   _,         _,        _),
+    amigo(vermelha, _,        _,           _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O homem de 45 anos está exatamente à direita do homem que gosta de curiosidades de Música.
-
-aDireitaAdjacente( 
+exatamenteADireita( 
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           _,         _,        45),
+    amigo(_,        _,        musica,      _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O Editor está em algum lugar entre o Henrique e o homem que está bebendo Cerveja, nessa ordem.
-
 entre( 
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           editor,    _,        _),
+    amigo(_,        henrique, _,           _,         _,        _),
+    amigo(_,        _,        _,           _,         cerveja,  _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % Marcel gosta de curiosidades de Animais.
-
-    amigo(_,        _,        _,           _,         _,        _),
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        marcel,   animais,     _,         _,        _),
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 
 % Na quinta posição está o homem que gosta de curiosidades de Cinema.
-
 naPosicao(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
+    amigo(_,        _,        cinema,      _,         _,        _),
     5
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O homem de 30 anos está em algum lugar entre Marcel e o homem de 40 anos, nessa ordem.
-
 entre(
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           _,         _,        30),
+    amigo(_,        marcel,   _,           _,         _,        _),
+    amigo(_,        _,        _,           _,         _,        40)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % Rodolfo está ao lado de Carlos.
-
 aoLado( 
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        rodolfo,  _,           _,         _,        _),
+    amigo(_,        carlos,   _,           _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O Analista está ao lado do homem que gosta de curiosidades de Esportes.
-
 aoLado( 
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(_,        _,        _,           analista,  _,        _),
+    amigo(_,        _,        esportes,    _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % O homem de Azul está em algum lugar à esquerda do homem que está bebendo Água.
-
 aEsquerda( 
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(azul,     _,        _,           _,         _,        _),
+    amigo(_,        _,        _,           _,         agua,     _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
-% O homem de Vermelho está em algum lugar entre o homem que gosta de curiosidades de Música e o Evandro, nessa ordem.
-
+% O homem de camiseta vermelha está em algum lugar entre o homem que gosta de curiosidades de Música e o Evandro, nessa ordem.
 entre( 
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
-    amigo(_,        _,        _,           _,         _,        _)
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
+    amigo(vermelha, _,        _,           _,         _,        _),
+    amigo(_,        _,        musica,      _,         _,        _),
+    amigo(_,        evandro,  _,           _,         _,        _)
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 % Rodolfo está na terceira posição.
-
 naPosicao( 
     Mesa,
-    amigo(_,        _,        _,           _,         _,        _),
+    amigo(_,        rodolfo,  _,           _,         _,        _),
     3
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,  idade)
-
+%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
 
 camiseta(Camiseta1),
