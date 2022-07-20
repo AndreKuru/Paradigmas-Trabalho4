@@ -1,1 +1,0 @@
-# Paradigmas-Trabalho4
