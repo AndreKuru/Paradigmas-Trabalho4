@@ -35,8 +35,6 @@ idade(35).
 idade(40).
 idade(45).
 
-amigo(camiseta, nome, curiosidade, profissao, bebida, idade).
-
 % O elemento está em algum dos extremos da Lista
 naPonta(Lista, Elemento) :- last(Lista, Elemento).
 naPonta([Elemento|_], Elemento).
@@ -117,8 +115,8 @@ entre(
 ),
 
 % O Frentista está vestindo uma camiseta Verde.
-    amigo(verde,    _,        _,           frentista, _,        _),
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
+member(amigo(verde,    _,        _,           frentista, _,        _), Mesa),
+%      amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 
 
 % O Professor está exatamente à esquerda do homem de 30 anos.
@@ -172,8 +170,8 @@ entre(
 ),
 
 % Marcel gosta de curiosidades de Animais.
-    amigo(_,        marcel,   animais,     _,         _,        _),
-%   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
+member(amigo(_,        marcel,   animais,     _,         _,        _), Mesa),
+%      amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 
 % Na quinta posição está o homem que gosta de curiosidades de Cinema.
 naPosicao(
