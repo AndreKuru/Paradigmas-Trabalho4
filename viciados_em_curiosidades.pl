@@ -60,7 +60,7 @@ exatamenteADireita(Lista, X, Y)  :- aDireita(Lista, X, Y),  aoLado(Lista, X, Y).
 % X está em alguma posição a direita de Y e em alguma posição a esquerda de Z
 entre(Lista, X, Y, Z) :- aDireita(Lista, X, Y), aEsquerda(Lista, X, Z).
 
-todosDiferentes([]).
+todosDiferentes([]) :- !.
 todosDiferentes([H|T]) :- not(member(H, T)), todosDiferentes(T).
 
 % Solução com as dicas
@@ -109,7 +109,7 @@ exatamenteAEsquerda(
 entre(
     Mesa,
     amigo(_,        _,        _,           _,         _,        25),
-    amigo(_,        _,        _,           _,         _,        40),
+    amigo(_,        _,        _,           _,         _,        45),
     amigo(_,        _,        _,           _,         _,        30)
 %   amigo(camiseta, nome,     curiosidade, profissao, bebida,   idade)
 ),
